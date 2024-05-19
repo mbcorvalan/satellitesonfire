@@ -1,13 +1,13 @@
-import { configureStore, Action, combineReducers } from '@reduxjs/toolkit';
-
-// Define your reducers here
-const rootReducer = combineReducers({});
+import { configureStore } from '@reduxjs/toolkit';
+import fireReducer from './fireSlicer';
 
 const store = configureStore({
-  reducer: rootReducer,
+	reducer: {
+		fire: fireReducer,
+	},
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;

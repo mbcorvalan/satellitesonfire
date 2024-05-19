@@ -50,7 +50,6 @@ export const layerStyles: SxProps<Theme> = {
 
 /**
  * Interface representing a satellite.
- * @interface
  */
 export interface Satellite {
 	/** The name of the satellite to be displayed in the list. */
@@ -75,9 +74,7 @@ export const satellites: Satellite[] = [
 
 /**
  * Interface representing a theme.
- * @interface
  */
-
 export const filterButtonTheme = createTheme({
 	components: {
 		MuiButton: {
@@ -109,17 +106,18 @@ interface TileLayer {
 /**
  * Array of tile layers available for the map.
  * Each tile layer contains a name, a URL template, and attribution text.
+ * @type {TileLayer[]}
  */
 export const tileLayers: TileLayer[] = [
-	{
-		name: 'Satellite',
-		url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-		attribution: 'Google Maps',
-	},
 	{
 		name: 'Street',
 		url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 		attribution: '&copy; OpenStreetMap contributors',
+	},
+	{
+		name: 'Satellite',
+		url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+		attribution: 'Google Maps',
 	},
 ];
 
@@ -128,3 +126,18 @@ export const tileLayers: TileLayer[] = [
  * @type {LatLngTuple}
  */
 export const initialPosition: LatLngTuple = [-34.6, -58.38];
+
+/**
+ * Initial zoom level for the map.
+ * @type {number}
+ */
+export const initialZoom: number = 13;
+
+/**
+ * Styles for the map container.
+ * @type {React.CSSProperties}
+ */
+export const mapStyles: React.CSSProperties = {
+	height: '100vh',
+	width: '100%',
+};

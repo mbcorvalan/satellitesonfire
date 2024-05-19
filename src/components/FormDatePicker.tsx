@@ -5,26 +5,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { formStyles, satellites, Satellite } from '../utils/constants/constants';
 import FilterButton from './FilterButton';
-import { Dayjs } from 'dayjs';
-import { SelectChangeEvent } from '@mui/material';
+import { useForm } from '../hooks/useForm';
 
-interface FormDatePickerProps {
-    satellite: string;
-    date: Dayjs | null;
-    errors: { satellite: boolean; date: boolean; };
-    handleSatelliteChange: (event: SelectChangeEvent<string>) => void;
-    handleDateChange: (newDate: Dayjs | null) => void;
-    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-}
+const FormDatePicker = () => {
+    const { satellite, date, errors, handleSatelliteChange, handleDateChange, handleSubmit } = useForm();
 
-const FormDatePicker: React.FC<FormDatePickerProps> = ({
-    satellite,
-    date,
-    errors,
-    handleSatelliteChange,
-    handleDateChange,
-    handleSubmit,
-}) => {
     return (
         <Box component="form" sx={formStyles} noValidate autoComplete="off" onSubmit={handleSubmit}>
             <FormControl sx={{ mb: 2 }} fullWidth required error={errors.satellite}>
