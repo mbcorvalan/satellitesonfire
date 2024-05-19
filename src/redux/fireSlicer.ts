@@ -1,36 +1,46 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getFiresData, FireCase } from '../service/fireService';
 
+export const fetchFireData = createAsyncThunk(
+	'fire/fetchFireData',
+	async ({
+		date,
+		time,
+		satellite,
+	}: {
+		date: string;
+		time: string;
+		satellite: string;
+	}) => {
+		return await getFiresData({ date, time, satellite });
+	}
+);
+
 interface FireState {
+	data: FireCase[];
 	isLoading: boolean;
-	data: FireCase[] | null;
-	error: boolean;
+	error: string | null;
 }
 
 const initialState: FireState = {
+	data: [],
 	isLoading: false,
-	data: null,
-	error: false,
+	error: null,
 };
-
-// Async thunk to fetch fire data
-export const fetchFireData = createAsyncThunk(
-	'fire/fetchFireData',
-	async ({ date, time }: { date: string; time: string }) => {
-		const response = await getFiresData({ date, time });
-		return response;
-	}
-);
 
 const fireSlice = createSlice({
 	name: 'fire',
 	initialState,
-	reducers: {},
+	reducers: {
+		clearFireData: (state) => {
+			state.data = [];
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchFireData.pending, (state) => {
 				state.isLoading = true;
-				state.error = false;
+				state.error = null;
 			})
 			.addCase(
 				fetchFireData.fulfilled,
@@ -39,11 +49,12 @@ const fireSlice = createSlice({
 					state.data = action.payload;
 				}
 			)
-			.addCase(fetchFireData.rejected, (state) => {
+			.addCase(fetchFireData.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = true;
+				state.error = action.error.message || 'Failed to fetch fire data';
 			});
 	},
 });
 
+export const { clearFireData } = fireSlice.actions;
 export default fireSlice.reducer;

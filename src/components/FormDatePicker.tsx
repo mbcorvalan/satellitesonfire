@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useCallback } from 'react';
 import { Box, InputLabel, FormControl, Select, MenuItem, FormHelperText } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -6,9 +6,19 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { formStyles, satellites, Satellite } from '../utils/constants/constants';
 import FilterButton from './FilterButton';
 import { useForm } from '../hooks/useForm';
+import { SelectChangeEvent } from '@mui/material';
+
 
 const FormDatePicker = () => {
-    const { satellite, date, errors, handleSatelliteChange, handleDateChange, handleSubmit } = useForm();
+    const [satellite, setSatellite] = useState<string>('');
+    const { date, errors, handleDateChange, handleSubmit } = useForm(satellite);
+
+    const handleSatelliteChange = useCallback(
+        (event: SelectChangeEvent<string>) => {
+            setSatellite(event.target.value);
+        },
+        []
+    );
 
     return (
         <Box component="form" sx={formStyles} noValidate autoComplete="off" onSubmit={handleSubmit}>

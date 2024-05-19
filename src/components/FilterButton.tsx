@@ -2,12 +2,16 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { ThemeProvider } from '@mui/material/styles';
 import { filterButtonTheme } from '../utils/constants/constants';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+
 
 interface FilterButtonProps {
     handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({ handleSubmit }) => {
+    const fireStatus = useSelector((state: RootState) => state.fire.isLoading);
     return (
         <ThemeProvider theme={filterButtonTheme}>
             <Button
@@ -16,7 +20,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({ handleSubmit }) => {
                 variant="contained"
                 sx={{ width: "100%", borderRadius: "50px" }}
             >
-                Filter
+                {fireStatus ? 'Loading...' : 'Filter'}
             </Button>
         </ThemeProvider>
     );

@@ -1,34 +1,23 @@
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
-import { fetchFireData } from '../service/fireService';
+import { fetchFireData, clearFireData } from '../redux/fireSlicer';
 import { Dayjs } from 'dayjs';
-import { SelectChangeEvent } from '@mui/material';
 
 interface UseFormResult {
-	satellite: string;
 	date: Dayjs | null;
 	errors: { satellite: boolean; date: boolean };
-	handleSatelliteChange: (event: SelectChangeEvent<string>) => void;
 	handleDateChange: (newDate: Dayjs | null) => void;
 	handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export const useForm = (): UseFormResult => {
+export const useForm = (satellite: string): UseFormResult => {
 	const dispatch: AppDispatch = useDispatch();
-	const [satellite, setSatellite] = useState<string>('');
 	const [date, setDate] = useState<Dayjs | null>(null);
 	const [errors, setErrors] = useState<{ satellite: boolean; date: boolean }>({
 		satellite: false,
 		date: false,
 	});
-
-	const handleSatelliteChange = useCallback(
-		(event: SelectChangeEvent<string>) => {
-			setSatellite(event.target.value);
-		},
-		[]
-	);
 
 	const handleDateChange = (newDate: Dayjs | null) => {
 		setDate(newDate);
@@ -43,8 +32,10 @@ export const useForm = (): UseFormResult => {
 			};
 			setErrors(newErrors);
 			if (!newErrors.satellite && !newErrors.date && date) {
+				dispatch(clearFireData());
 				dispatch(
 					fetchFireData({
+						satellite: satellite,
 						date: date.format('YYYY-MM-DD'),
 						time: date.format('HH'),
 					})
@@ -55,10 +46,8 @@ export const useForm = (): UseFormResult => {
 	);
 
 	return {
-		satellite,
 		date,
 		errors,
-		handleSatelliteChange,
 		handleDateChange,
 		handleSubmit,
 	};
