@@ -19,6 +19,16 @@ interface ApiResponse {
 	};
 }
 
+/**
+ * Fetches fire data based on the given date, time, and satellite.
+ *
+ * @param {object} params - The parameters for the API request.
+ * @param {string} params.date - The date for the fire data.
+ * @param {string} params.time - The time for the fire data.
+ * @param {string} params.satellite - The satellite identifier.
+ * @returns {Promise<FireCase[]>} The filtered fire cases.
+ * @throws {Error} If fetching the fire data fails or no matching satellites are found.
+ */
 export const getFiresData = async ({
 	date,
 	time,

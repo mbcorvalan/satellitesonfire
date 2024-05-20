@@ -16,6 +16,7 @@ export const formStyles: SxProps<Theme> = {
 
 export const filterPanel: SxProps<Theme> = {
 	position: 'absolute',
+	alignItems: 'end',
 	top: 10,
 	right: 10,
 	margin: '20px',
@@ -31,6 +32,7 @@ export const filterPanel: SxProps<Theme> = {
  */
 export const layerStyles: SxProps<Theme> = {
 	display: 'inline-flex',
+	maxWidth: '50px',
 	p: 2,
 	zIndex: 1000,
 	backgroundColor: 'white',
@@ -78,6 +80,25 @@ export const filterButtonTheme = createTheme({
 					color: 'white',
 					'&:hover': {
 						backgroundColor: '#354b87',
+					},
+				},
+			},
+		},
+	},
+});
+
+/**
+ * Theme for the layer button.
+ */
+export const layerButtonTheme = createTheme({
+	components: {
+		MuiIconButton: {
+			styleOverrides: {
+				root: {
+					color: '#3e5aa9',
+					'&:hover': {
+						backgroundColor: '#354b87',
+						color: 'white',
 					},
 				},
 			},
@@ -177,3 +198,18 @@ export const VIIRSCategories: VIIRSCategory = {
 	50: 'Probabilidad media',
 	90: 'Probabilidad alta',
 };
+
+/**
+ * Truncate a number to three decimal places.
+ *
+ * @param {number} num - The number to truncate.
+ * @returns {number} The truncated number.
+ */
+export const truncateToThreeDecimals = (num: number): number => {
+	return Math.floor(num * 1000) / 1000;
+};
+
+/**
+ * Number of items per page for pagination.
+ */
+export const ITEMS_PER_PAGE = 3;

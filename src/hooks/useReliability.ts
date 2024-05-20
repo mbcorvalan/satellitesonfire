@@ -3,16 +3,18 @@ import { GOESCategories, VIIRSCategories } from '../utils/constants/constants';
 
 /**
  * Custom hook to get the reliability based on satellite type and confidence level.
- * @returns An object containing the getReliability function.
+ *
+ * @returns {object} An object containing the getReliability function.
  */
 const useReliability = (): {
 	getReliability: (sat: string, conf: number) => number;
 } => {
 	/**
 	 * Function to calculate the reliability based on the satellite and confidence level.
-	 * @param sat - The satellite identifier.
-	 * @param conf - The confidence level.
-	 * @returns The reliability as a number.
+	 *
+	 * @param {string} sat - The satellite identifier.
+	 * @param {number} conf - The confidence level.
+	 * @returns {number} The reliability as a number.
 	 */
 	const getReliability = useCallback((sat: string, conf: number): number => {
 		switch (sat) {

@@ -11,6 +11,12 @@ interface UseFormResult {
 	handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
+/**
+ * Custom hook to manage form state and handle form submission.
+ *
+ * @param {string} satellite - The selected satellite.
+ * @returns {UseFormResult} The form state and handlers.
+ */
 export const useForm = (satellite: string): UseFormResult => {
 	const dispatch: AppDispatch = useDispatch();
 	const [date, setDate] = useState<Dayjs | null>(null);

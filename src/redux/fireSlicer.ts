@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getFiresData, FireCase } from '../service/fireService';
 
+/**
+ * Thunk to fetch fire data based on date, time, and satellite.
+ */
 export const fetchFireData = createAsyncThunk(
 	'fire/fetchFireData',
 	async ({
@@ -28,6 +31,9 @@ const initialState: FireState = {
 	error: null,
 };
 
+/**
+ * Slice to manage fire data state.
+ */
 const fireSlice = createSlice({
 	name: 'fire',
 	initialState,

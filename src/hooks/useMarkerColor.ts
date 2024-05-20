@@ -2,15 +2,17 @@ import { useCallback } from 'react';
 
 /**
  * Custom hook to get the color of a marker based on its reliability.
- * @returns An object containing the getMarkerColor function.
+ *
+ * @returns {object} An object containing the getMarkerColor function.
  */
 const useMarkerColor = (): {
 	getMarkerColor: (reliability: number) => string;
 } => {
 	/**
 	 * Function to determine the color of a marker based on its reliability.
-	 * @param reliability - The reliability value.
-	 * @returns The color of the marker as a string.
+	 *
+	 * @param {number} reliability - The reliability value.
+	 * @returns {string} The color of the marker as a string.
 	 */
 	const getMarkerColor = useCallback((reliability: number): string => {
 		if (reliability >= 0.8) {

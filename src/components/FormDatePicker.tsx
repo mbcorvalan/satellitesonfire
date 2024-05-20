@@ -8,8 +8,12 @@ import FilterButton from './FilterButton';
 import { useForm } from '../hooks/useForm';
 import { SelectChangeEvent } from '@mui/material';
 
-
-const FormDatePicker = () => {
+/**
+ * FormDatePicker component that renders a form with a satellite selection and date-time picker.
+ *
+ * @returns {JSX.Element} The rendered form date picker component.
+ */
+const FormDatePicker: React.FC = () => {
     const [satellite, setSatellite] = useState<string>('');
     const { date, errors, handleDateChange, handleSubmit } = useForm(satellite);
 

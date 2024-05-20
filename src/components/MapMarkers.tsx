@@ -7,6 +7,11 @@ import { FireCase } from '../service/fireService';
 import useReliability from '../hooks/useReliability';
 import useMarkerColor from '../hooks/useMarkerColor';
 
+/**
+ * MapMarkers component that renders markers on the map for each fire case.
+ *
+ * @returns {JSX.Element} The rendered map markers component.
+ */
 const MapMarkers: React.FC = () => {
     const fireCases: FireCase[] = useSelector((state: RootState) => state.fire.data);
     const { getMarkerColor } = useMarkerColor();
