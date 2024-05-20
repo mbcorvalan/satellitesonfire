@@ -1,6 +1,7 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import { LatLngTuple } from 'leaflet';
+import { FireCase } from '../../service/fireService';
 
 /**
  * Styles for the form component.
@@ -213,3 +214,6 @@ export const truncateToThreeDecimals = (num: number): number => {
  * Number of items per page for pagination.
  */
 export const ITEMS_PER_PAGE = 3;
+
+export const baseAPIUrl =
+	process.env.REACT_APP_BASE_URL || window.location.origin;

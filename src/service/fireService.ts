@@ -1,4 +1,5 @@
-import axiosInstance from './axios';
+import axios from 'axios';
+import { baseAPIUrl } from '../utils/constants/constants';
 
 export interface FireCase {
 	cat: string | null;
@@ -38,22 +39,21 @@ export const getFiresData = async ({
 	time: string;
 	satellite: string;
 }): Promise<FireCase[]> => {
-	const url = `/api/${date}/T${time}.json`;
+	const url = `${baseAPIUrl}/api/${date}/T${time}.json`;
 
 	try {
-		const response = await axiosInstance.get<ApiResponse>(url);
+		const response = await axios.get<ApiResponse>(url);
 		const filteredItems =
 			response.data.data.getPublicWildfireByDate.items.filter(
 				(item) => item.sat === satellite
 			);
 
 		if (filteredItems.length === 0) {
-			throw new Error('No matching satellites found for the given criteria.');
+			throw new Error('Failed to fetch fires');
 		}
 
 		return filteredItems;
 	} catch (error) {
-		console.error('Failed to fetch fires:', error);
 		throw new Error('Failed to fetch fires');
 	}
 };
