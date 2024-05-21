@@ -33,7 +33,7 @@ const FireCasesBox: React.FC = () => {
     return (
         <Box sx={formStyles}>
             <Typography variant="h6">Fire Information</Typography>
-            <Typography variant="body1" data-testid="markers-list">
+            <Typography variant="body1">
                 Number of Points: {fireCases.length}
             </Typography>
             {paginatedFireCases.map((fireCase, index) => {

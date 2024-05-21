@@ -1,7 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import { LatLngTuple } from 'leaflet';
-import { FireCase } from '../../service/fireService';
 
 /**
  * Styles for the form component.
@@ -217,3 +216,33 @@ export const ITEMS_PER_PAGE = 3;
 
 export const baseAPIUrl =
 	process.env.REACT_APP_BASE_URL || window.location.origin;
+
+export const mockResponse = {
+	data: {
+		data: {
+			getPublicWildfireByDate: {
+				items: [
+					{
+						cat: null,
+						conf: 13,
+						date: '2023-01-01T00',
+						id: '2023-01-01T00:00:00+00:00+-103.36+24.12',
+						sat: 'noaa-goes17',
+						x: -103.36372375488281,
+						y: 24.116455078125,
+					},
+					{
+						cat: null,
+						conf: 15,
+						date: '2023-01-01T00',
+						id: '2023-01-01T00:00:00+00:00+-103.41+24.11',
+						sat: 'noaa-goes16',
+						x: -103.41473388671875,
+						y: 24.11414909362793,
+					},
+				],
+				nextToken: null,
+			},
+		},
+	},
+};

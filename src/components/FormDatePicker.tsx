@@ -25,12 +25,18 @@ const FormDatePicker: React.FC = () => {
     );
 
     return (
-        <Box component="form" sx={formStyles} noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <Box data-testid="format-date-picker" component="form" sx={formStyles} noValidate autoComplete="off" onSubmit={handleSubmit}>
             <FormControl sx={{ mb: 2 }} fullWidth required error={errors.satellite}>
-                <InputLabel id="satellite-select">Satellite</InputLabel>
-                <Select label="Satellite" labelId="satellite-select" value={satellite} onChange={handleSatelliteChange}>
+                <InputLabel id="satellite-select-label">Satellite</InputLabel>
+                <Select
+                    label="Satellite"
+                    labelId="satellite-select-label"
+                    id="satellite-select"
+                    value={satellite}
+                    onChange={handleSatelliteChange}
+                >
                     {satellites.map((sat: Satellite) => (
-                        <MenuItem key={sat.value} value={sat.value}>
+                        <MenuItem key={sat.value} value={sat.value} data-testid={`name-item-${sat.value}`}>
                             {sat.label}
                         </MenuItem>
                     ))}

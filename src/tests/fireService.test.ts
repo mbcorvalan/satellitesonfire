@@ -1,17 +1,17 @@
 import axios from 'axios';
 import { getFiresData } from '../service/fireService';
-import { baseAPIUrl } from '../utils/constants/constants';
+import { baseAPIUrl, mockResponse } from '../utils/constants/constants';
 
 jest.mock('axios', () => ({
 	__esModule: true,
 	default: {
-		get: jest.fn(),
+		get: jest.fn(() => Promise.resolve({ mockResponse })),
 	},
 }));
 
 describe('getFiresData', () => {
-	const date = 'perro';
-	const time = 'perro';
+	const date = '2023-01-01';
+	const time = '00';
 	const satellite = 'noaa-goes17';
 	const url = `${baseAPIUrl}/api/${date}/T${time}.json`;
 
@@ -20,35 +20,6 @@ describe('getFiresData', () => {
 	});
 
 	it('should fetch fire data and return filtered items based on satellite', async () => {
-		const mockResponse = {
-			data: {
-				data: {
-					getPublicWildfireByDate: {
-						items: [
-							{
-								cat: null,
-								conf: 13,
-								date: '2023-01-01T00',
-								id: '2023-01-01T00:00:00+00:00+-103.36+24.12',
-								sat: 'noaa-goes17',
-								x: -103.36372375488281,
-								y: 24.116455078125,
-							},
-							{
-								cat: null,
-								conf: 15,
-								date: '2023-01-01T00',
-								id: '2023-01-01T00:00:00+00:00+-103.41+24.11',
-								sat: 'noaa-goes16',
-								x: -103.41473388671875,
-								y: 24.11414909362793,
-							},
-						],
-						nextToken: null,
-					},
-				},
-			},
-		};
 		(axios.get as jest.Mock).mockResolvedValueOnce(mockResponse);
 
 		const result = await getFiresData({ date, time, satellite });
@@ -75,12 +46,12 @@ describe('getFiresData', () => {
 						items: [
 							{
 								cat: null,
-								conf: 0.9,
-								date: '2023-05-20',
-								id: '2',
-								sat: 'Terra',
-								x: 789,
-								y: 101,
+								conf: 15,
+								date: '2023-01-01T00',
+								id: '2023-01-01T00:00:00+00:00+-103.41+24.11',
+								sat: 'modis-terra',
+								x: -103.41473388671875,
+								y: 24.11414909362793,
 							},
 						],
 						nextToken: null,
